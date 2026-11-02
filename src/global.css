@@ -1,35 +1,46 @@
 body {
-    color: #fff;
-    background: #17181c;
-    font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: #fff;
+  background-image: radial-gradient(circle at 10% 20%, rgb(143, 175, 217) 0%, rgb(58, 68, 82) 90%);
 }
-
 header {
-    padding: 10px 30px;
+  padding: 10px 30px;
 }
 
 header h1 {
-    font-size: 40px;
-    font-weight: 800;
+  font-size: 40px;
+  font-weight: 800;
 }
 
 footer {
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin-top: auto;
+  gap: 20px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 footer .copyright {
-    font-size: 14px;
-    color: #333;
-    text-align: center;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
 }
 footer .copyright a {
-    color: #444;
+  color: #444;
 }
 footer .copyright a:hover {
-    color: #555;
+  color: #555;
 }
 footer .copyright:before {
-    content: '©';
+  content: '©';
+}
+.logo_rs {
+  width: 70px;
+  height: 40px;
+}
+.git {
+  text-decoration: none;
+  color: inherit;
 }

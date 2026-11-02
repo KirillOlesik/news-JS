@@ -35,3 +35,4 @@ export type NewsQueryParams = Partial<{
 }>;
 
 export type ArticlePreview = Pick<Article, 'title' | 'urlToImage' | 'url'>;
+export type ReadonlyArticle = Readonly<Article>;
