@@ -26,3 +26,12 @@ export type NewsResponse = {
   totalResults: number;
   articles: Article[];
 };
+
+export type NewsQueryParams = Partial<{
+  q: string;
+  sources: string;
+  category: string;
+  language: string;
+}>;
+
+export type ArticlePreview = Pick<Article, 'title' | 'urlToImage' | 'url'>;
