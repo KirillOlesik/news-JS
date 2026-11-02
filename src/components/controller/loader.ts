@@ -1,19 +1,31 @@
+export enum HttpMethod {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
+}
+interface RequestConfig {
+  endpoint: string;
+  options?: Record<string, string | number>;
+}
 class Loader {
-  constructor(baseLink, options) {
+  private baseLink: string;
+  private options: Record<string, string>;
+  constructor(baseLink: string, options: Record<string, string>) {
     this.baseLink = baseLink;
     this.options = options;
   }
 
-  getResp(
-    { endpoint, options = {} },
-    callback = () => {
+  public getResp<T>(
+    { endpoint, options = {} }: RequestConfig,
+    callback: (data: T) => void = () => {
       console.error('No callback for GET response');
     },
-  ) {
-    this.load('GET', endpoint, callback, options);
+  ): void {
+    this.load<T>(HttpMethod.GET, endpoint, callback, options);
   }
 
-  errorHandler(res) {
+  private errorHandler(res: Response): Response {
     if (!res.ok) {
       if (res.status === 401 || res.status === 404)
         console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -23,7 +35,7 @@ class Loader {
     return res;
   }
 
-  makeUrl(options, endpoint) {
+  private makeUrl(options: Record<string, string | number>, endpoint: string): string {
     const urlOptions = { ...this.options, ...options };
     let url = `${this.baseLink}${endpoint}?`;
 
@@ -34,11 +46,16 @@ class Loader {
     return url.slice(0, -1);
   }
 
-  load(method, endpoint, callback, options = {}) {
+  private load<T>(
+    method: HttpMethod,
+    endpoint: string,
+    callback: (data: T) => void,
+    options: Record<string, string | number> = {},
+  ): void {
     fetch(this.makeUrl(options, endpoint), { method })
       .then(this.errorHandler)
       .then((res) => res.json())
-      .then((data) => callback(data))
+      .then((data) => callback(data as T))
       .catch((err) => console.error(err));
   }
 }
